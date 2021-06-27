@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.i18n.encoding" value="UTF-8"> </constant>
+    <package name="demo" extends="struts-default" namespace="/">
+        <!-- 全局结构页面配置   -->
+        <!--        <global-results>-->
+        <!--            <result name="success">/hello.jsp</result>-->
+        <!--        </global-results>-->
+        <action name="userAction" class="cn.itcast.action.UserAction">
+
+        </action>
+        <action name="ValueStackDemo1" class="cn.itcast.action.ValueStackDemoAction">
+            <result name="success">/ValueStack.jsp</result>
+        </action>
+
+        <action name="objectDemo" class="cn.itcast.action.ObjectDemoAction">
+            <result name="success">/ValueStack.jsp</result>
+        </action>
+
+        <action name="listDemo" class="cn.itcast.action.ListDemoAction">
+            <result name="success">/ValueStack.jsp</result>
+        </action>
+
+        <action name="valueStack" class="cn.itcast.valuestack.ValueStackAction">
+            <result name="success">/ValueStack.jsp</result>
+        </action>
+
+        <action name="contextAction" class="cn.itcast.valuestack.ContextAction">
+            <result name="success">/Context.jsp</result>
+        </action>
+
+        <action name="person" class="cn.itcast.action.PersonAction">
+            <result name="success" type="dispatcher">/hello.jsp</result>
+        </action>
+
+    </package>
+
+    <package name="demo1" extends="struts-default" namespace="/">
+
+        <action name="form1" class="cn.itcast.form.Form1DemoAction">
+
+        </action>
+        <action name="form2" class="cn.itcast.form.Form2DemoAction">
+
+        </action>
+        <action name="form3" class="cn.itcast.form.Form3DemoAction">
+
+        </action>
+        <action name="data1" class="cn.itcast.data.DataDemo1Action">
+
+        </action>
+        <action name="data2" class="cn.itcast.data.DataDemo2Action">
+
+        </action>
+        <action name="data3" class="cn.itcast.data.DataDemo3Action">
+
+        </action>
+        <action name="list1" class="cn.itcast.data.ListAction">
+
+        </action>
+        <action name="map" class="cn.itcast.data.MapAction">
+
+        </action>
+
+    </package>
+    
+    <package name="demo2" extends="struts-default" namespace="/">
+        <!--声明拦截器-->
+        <interceptors>
+            <interceptor name="logininterceptor" class="cn.itcast.interceptor.LoginInterceptor"> </interceptor>
+        </interceptors>
+        <action name="customer_*" class="cn.itcast.action.CustomerAction" method="{1}">
+        <!--使用自定义拦截器            -->
+            <interceptor-ref name="logininterceptor">
+                <!--配置action里面的某些方法不拦截-->
+                <param name="excludeMethods">login</param>
+            </interceptor-ref>
+        <!--把默认拦截器手动打开-->
+            <interceptor-ref name="defaultStack"> </interceptor-ref>
+            <result name="loginsuccess">/index.jsp</result>
+            <result name="defeate">world.jsp</result>
+        </action>
+        
+    </package>
+</struts>
